@@ -1,0 +1,68 @@
+package AmazonProject.AmazonProject;
+
+import java.io.IOException;
+import java.io.ObjectInputFilter.Status;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class ExtentReport {
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+		// TODO Auto-generated method stub
+		
+		WebDriver driver;
+
+		 ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent.html");
+		    
+	        // create ExtentReports and attach reporter(s)
+	        ExtentReport extent = new ExtentReport();
+	        extent.attachReporter(htmlReporter);
+
+	        // creates a toggle for the given test, adds all log events under it    
+	        ExtentReport test = extent.createTest("Google search Test1", "This is a Test to validate Google search Functionality");
+	        
+	        String path = System.getProperty("user.dir")+"\\reports\\index.html";
+	        
+	       // System.setProperty("weddriver.gecko.driver", path+"\\reports\\\\index.html\");
+			
+	        test.log(Status.INFO, "Starting Test Case");
+			driver = new FirefoxDriver(); //create an object
+			
+			driver.get("https://www.google.com/");
+			test.pass("Navigated to google.com");
+			
+			ExtentReport test1 = extent.createTest("MyFirstTest");
+
+			
+			driver.findElement(By.id("APjFqb")).sendKeys("virat kohli photo");
+			test1.pass("Enetered text data in searchbox");
+			Thread.sleep(1000);
+			driver.findElement(By.name("btnK")).sendKeys(Keys.RETURN);
+			test1.pass("Hit on the keyboard entered key");
+			driver.close();
+	        test1.pass("close the browser");
+        
+	        test1.pass("Test completed");
+	        
+	        extent.flush();
+		
+	}
+
+	private void flush() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void pass(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private ExtentReport createTest(String string, String string2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
